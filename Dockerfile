@@ -44,8 +44,10 @@ EXPOSE  6680
 
 $ sudo apt-get install nginx-extras
 
-ADD     default /etc/nginx/default
+ADD     open_door/conf/default /etc/nginx/default
 
-ADD     open_the_door.py /usr/local/bin/
+ADD     open_door/bin/open_the_door.py /usr/local/bin/
 
-# hacer chmod +x al archivo
+ADD     open_door/html/open.html /usr/share/nginx/www
+
+RUN     chmod +x /usr/local/bin/open_the_door.py
