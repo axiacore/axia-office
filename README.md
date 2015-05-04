@@ -1,8 +1,16 @@
 # AxiaOffice
 
-This is how we roll.
+Scripts and settings for our raspberry
 
-## Opening the door
+## Setting wifi
 
-Point your browser to your http://local.pi.address/open.html and push the button
+TBD
+
+## Keeping wifi up
+
+Put the script ```keepalivewifi/keepalivewifi.sh``` at ```/usr/local/bin/``` then:
+
+$ sudo chmod +x /usr/local/bin/keepalive.sh
+
+Next edit the crontab file and add the content from ```keepalivewifi/crontab``` into it
 
