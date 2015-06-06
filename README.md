@@ -23,20 +23,20 @@ Next are the steps for setting up the raspberry.
   Wait for the instalation process and select the option to expand the file system, then choose to reboot.
 
 5. Check the video output from the raspberry or on your local computer find the raspberry IP address running:
-```sh
-$ nmap -sn 192.168.1.1/24
-```
+  ```sh
+  $ nmap -sn 192.168.1.1/24
+  ```
 
 6. Add the IP address to your ansible hosts file /etc/ansible/hosts, like:
-```
-    [raspberry]
-    192.168.1.XXX
-```
+  ```
+  [raspberry]
+  192.168.1.XXX
+  ```
 
 7. Run:
-```sh
-$ ansible-playbook playbook.yml --ask-pass
-```
+  ```sh
+  $ ansible-playbook playbook.yml --ask-pass
+  ```
 
 8. Connect the wifi adapter to the raspberry
 
