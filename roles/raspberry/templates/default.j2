@@ -1,0 +1,11 @@
+server {
+    server_name _;
+
+    location / {
+        default_type 'text/plain';
+        content_by_lua '
+                os.execute("sudo /usr/local/bin/open-door &")
+                ngx.say("sesamo!")
+        ';
+    }
+}

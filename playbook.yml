@@ -1,0 +1,33 @@
+---
+- name: Setup a new raspberry for AxiaCore
+
+  hosts: raspberry
+
+  remote_user: pi
+
+  sudo: yes
+
+  vars_prompt:
+    - name: 'wifi_ssid'
+      prompt: 'WIFI network name'
+    - name: 'wifi_pass'
+      prompt: 'WIFI network password'
+
+  roles:
+   - raspberry
+
+  post_tasks:
+    - name: Restart server
+      sudo: yes
+      command: reboot
+      async: 0
+      poll: 0
+      ignore_errors: true
+
+    - name: Wait for server
+      local_action:
+        module: wait_for
+          host={{ inventory_hostname }}
+          port=22
+          delay=1
+          timeout=300
