@@ -64,10 +64,21 @@
     dest: /usr/local/bin/open-door
     mode: "u=rwx,g=rx,o=rx"
 
-- name: Allow any user to run the script as root
+- name: Allow www-data user to run open-door
   lineinfile: >
       dest=/etc/sudoers
       line='www-data ALL=(root) NOPASSWD: /usr/local/bin/open-door'
 
-- name: Set nginx configuration
+- name: Copy say script
+  copy:
+    src: bin/say
+    dest: /usr/local/bin/say
+    mode: "u=rwx,g=rx,o=rx"
+
+- name: Allow www-data user to run say
+  lineinfile: >
+      dest=/etc/sudoers
+      line='www-data ALL=(root) NOPASSWD: /usr/local/bin/say'
+
+- name: Set nginx site configuration
   template: src=default.j2 dest=/etc/nginx/sites-enabled/default
