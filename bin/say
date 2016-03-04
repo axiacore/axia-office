@@ -5,4 +5,4 @@
 # First parameter must be the language. Ej: es, en, it
 # Second parameter must be the text to say. Ej: Hola a todos
 ##
-/usr/bin/gst-launch-0.10 playbin2 volume=10 uri="http://translate.google.com/translate_tts?tl=`echo $1`&q=`echo $2`"
+/usr/bin/gst-launch-0.10 playbin2 volume=10 uri="http://www.voicerss.org/controls/speech.ashx?hl=`echo $1`&src=`echo $2`&c=mp3"
