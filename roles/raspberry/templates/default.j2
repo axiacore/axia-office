@@ -19,4 +19,14 @@ server {
             ngx.say("talking!")
         ';
     }
+
+    location /play {
+        default_type 'text/plain';
+        content_by_lua '
+            local url = ngx.unescape_uri(ngx.var.arg_url)
+
+            os.execute("sudo /usr/local/bin/play " .. url .. " &")
+            ngx.say("playing")
+        ';
+    }
 }

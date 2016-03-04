@@ -80,5 +80,16 @@
       dest=/etc/sudoers
       line='www-data ALL=(root) NOPASSWD: /usr/local/bin/say'
 
+- name: Copy play script
+  copy:
+    src: bin/play
+    dest: /usr/local/bin/play
+    mode: "u=rwx,g=rx,o=rx"
+
+- name: Allow www-data user to run play
+  lineinfile: >
+      dest=/etc/sudoers
+      line='www-data ALL=(root) NOPASSWD: /usr/local/bin/play'
+
 - name: Set nginx site configuration
   template: src=default.j2 dest=/etc/nginx/sites-enabled/default
