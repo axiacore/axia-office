@@ -1,24 +1,18 @@
 ---
-- name: Setup a new raspberry for AxiaCore
+- name: Setup a new raspberry for an AxiaCore Door
 
   hosts: raspberry
 
   remote_user: pi
 
-  sudo: yes
-
-  vars_prompt:
-    - name: 'wifi_ssid'
-      prompt: 'WIFI network name'
-    - name: 'wifi_pass'
-      prompt: 'WIFI network password'
+  become: true
 
   roles:
    - raspberry
 
   post_tasks:
     - name: Restart server
-      sudo: yes
+      become: true
       command: reboot
       async: 0
       poll: 0

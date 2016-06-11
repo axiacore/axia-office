@@ -1,22 +1,3 @@
-- name: Enable locale
-  lineinfile:
-    dest: /etc/locale.gen
-    state: present
-    regexp: '^# en_US.UTF-8 UTF-8'
-    line: 'en_US.UTF-8 UTF-8'
-
-- name: Generate locale
-  command: locale-gen en_US.UTF-8
-
-- name: Install the wifi driver
-  script: bin/install-8188eu
-
-- name: Set the wifi credentials
-  template:
-    src: wpa_supplicant.conf.j2
-    dest: /etc/wpa_supplicant/wpa_supplicant.conf
-    mode: "u=rw,g=,o="
-
 - name: Copy keepalive script
   copy:
     src: bin/keepalivewifi
@@ -30,7 +11,9 @@
     job: "root /usr/local/bin/keepalivewifi"
 
 - name: Add mopidy sources
-  command: wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/mopidy.list
+  get_url:
+    url: https://apt.mopidy.com/jessie.list
+    dest: /etc/apt/sources.list.d/mopidy.list
 
 - name: Add mopidy keys
   command: apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 78FD980E271D2943
@@ -41,14 +24,13 @@
     state: installed
     update_cache: yes
   with_items:
-    - python-dev
-    - python-pip
-    - gstreamer0.10-plugins-bad
     - mopidy
+    - gstreamer1.0-plugins-bad
+    - python-pip
     - nginx-extras
 
 - name: Install mopidy extensions
-  command: pip install Mopidy-Youtube Mopidy-MusicBox-Webclient
+  command: pip install youtube-dl Mopidy-Youtube Mopidy-MusicBox-Webclient
 
 - name: Set mopidfy configuration
   template:
