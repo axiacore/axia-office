@@ -6,7 +6,7 @@ Our current PI is **Raspberry PI B+ V1.2**
 
 Next are the steps for setting up the raspberry.
 
-1. Download raspbian https://www.raspberrypi.org/downloads/
+1. Download raspbian lite. https://www.raspberrypi.org/downloads/
 
 2. Copy the image file into the SD card. https://www.raspberrypi.org/documentation/installation/installing-images/README.md
 
@@ -22,9 +22,9 @@ Next are the steps for setting up the raspberry.
   ```
 
 4. Run sudo raspi-config and expand the file system.
-  Set the encoding to: en_US.UTF-8
-  Set the overclock to max
-  Reboot
+  - Set the encoding to: en_US.UTF-8
+  - Set the overclock to max
+  - Reboot
 
 5. Add the IP address to your ansible hosts file /etc/ansible/hosts, like:
   ```
