@@ -1,14 +1,6 @@
 server {
     server_name _;
 
-    location / {
-        default_type 'text/plain';
-        content_by_lua '
-            os.execute("sudo /usr/local/bin/open-door &")
-            ngx.say("sesamo!")
-        ';
-    }
-
     location /say {
         default_type 'text/plain';
         content_by_lua '
@@ -27,6 +19,14 @@ server {
 
             os.execute("sudo /usr/local/bin/play " .. url .. " &")
             ngx.say("playing")
+        ';
+    }
+
+    location / {
+        default_type 'text/plain';
+        content_by_lua '
+            os.execute("sudo /usr/local/bin/open-door &")
+            ngx.say("sesamo!")
         ';
     }
 }
