@@ -1,8 +1,0 @@
-#!/bin/bash
-
-##
-# Volume can be anything between 1 to 10.
-# First parameter must be the language. Ej: es, en, it
-# Second parameter must be the text to say. Ej: Hola a todos
-##
-/usr/bin/gst-launch-1.0 playbin volume=10 uri="http://www.voicerss.org/controls/speech.ashx?hl=`echo $1`&src=`echo $2`&c=mp3"

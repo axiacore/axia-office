@@ -1,44 +1,17 @@
-- name: Copy keepalive script
-  copy:
-    src: bin/keepalivewifi
-    dest: /usr/local/bin/keepalivewifi
-    mode: "u=rwx,g=rx,o=rx"
-
-- name: Add keepalive to cron
-  cron:
-    name: "keepalive"
-    minute: "*"
-    job: "root /usr/local/bin/keepalivewifi"
-
-- name: Add mopidy sources
-  get_url:
-    url: https://apt.mopidy.com/jessie.list
-    dest: /etc/apt/sources.list.d/mopidy.list
-
-- name: Add mopidy keys
-  command: apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 78FD980E271D2943
-
 - name: Install packages
   apt:
     pkg: "{{ item }}"
     state: installed
     update_cache: yes
   with_items:
-    - mopidy
-    - gstreamer1.0-plugins-bad
+    - mplayer
     - python-pip
     - nginx-extras
 
-- name: Install mopidy extensions
-  command: pip install youtube-dl Mopidy-Youtube Mopidy-MusicBox-Webclient
-
-- name: Set mopidfy configuration
-  template:
-    src: mopidy.conf.j2
-    dest: /etc/mopidy/mopidy.conf
-
-- name: Start mopidy service on boot
-  command: update-rc.d mopidy enable
+- name: Allow www-data user to run mplayer
+  lineinfile: >
+      dest=/etc/sudoers
+      line='www-data ALL=(root) NOPASSWD: /usr/bin/mplayer'
 
 - name: Copy open-door script
   copy:
@@ -50,28 +23,6 @@
   lineinfile: >
       dest=/etc/sudoers
       line='www-data ALL=(root) NOPASSWD: /usr/local/bin/open-door'
-
-- name: Copy say script
-  copy:
-    src: bin/say
-    dest: /usr/local/bin/say
-    mode: "u=rwx,g=rx,o=rx"
-
-- name: Allow www-data user to run say
-  lineinfile: >
-      dest=/etc/sudoers
-      line='www-data ALL=(root) NOPASSWD: /usr/local/bin/say'
-
-- name: Copy play script
-  copy:
-    src: bin/play
-    dest: /usr/local/bin/play
-    mode: "u=rwx,g=rx,o=rx"
-
-- name: Allow www-data user to run play
-  lineinfile: >
-      dest=/etc/sudoers
-      line='www-data ALL=(root) NOPASSWD: /usr/local/bin/play'
 
 - name: Set nginx site configuration
   template: src=default.j2 dest=/etc/nginx/sites-enabled/default

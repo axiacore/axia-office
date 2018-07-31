@@ -1,7 +1,0 @@
-#!/bin/bash
-
-##
-# Volume can be anything between 1 to 10.
-# First parameter must be the mp3 url. Ej: http://www.noiseaddicts.com/samples_1w72b820/4941.mp3
-##
-/usr/bin/gst-launch-1.0 playbin volume=10 uri="`echo $1`"
