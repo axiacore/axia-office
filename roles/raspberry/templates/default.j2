@@ -5,7 +5,7 @@ server {
         default_type 'text/plain';
         content_by_lua '
             local url = ngx.unescape_uri(ngx.var.arg_url)
-            os.execute("sudo /usr/bin/mplayer " .. url .. " &")
+            os.execute("sudo /usr/bin/mplayer -volume 90 " .. url .. " &")
             ngx.say("playing")
         ';
     }
